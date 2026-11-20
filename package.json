@@ -1,0 +1,24 @@
+{
+  "name": "tg-ai-secretary",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Telegram AI secretary on Cloudflare Workers: replies as you when you are away",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "webhook": "node scripts/set-webhook.mjs"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261118.1",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.1",
+    "wrangler": "^4.164.0"
+  },
+  "allowScripts": {
+    "workerd@1.20261117.1": true,
+    "esbuild@0.28.2": true
+  }
+}
