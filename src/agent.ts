@@ -363,13 +363,18 @@ export class AccountAgent implements DurableObject {
     const delayMinutes = Math.round(this.delayMs() / 60_000);
     const awaySeconds = Math.round(this.awayDelayMs() / 1000);
     const override = this.setting("presence_override");
+    const presenceOn = presenceEnabled(this.env);
 
     return [
       `Підключення: ${connection.id}`,
       `Стан: ${connection.is_enabled ? "активне" : "вимкнене"}`,
-      `Присутність: ${presence}${override ? ` (вручну: ${override})` : ""}`,
+      presenceOn
+        ? `Присутність: ${presence}${override ? ` (вручну: ${override})` : ""}`
+        : "Присутність: вимкнено (працює таймер)",
       `Пауза: ${this.isPaused() ? "так" : "ні"}`,
-      `Відповідь: away через ${awaySeconds} с, онлайн — тиша, невідомо — ${delayMinutes} хв`,
+      presenceOn
+        ? `Відповідь: away через ${awaySeconds} с, онлайн — тиша, невідомо — ${delayMinutes} хв`
+        : `Відповідь: через ${delayMinutes} хв`,
       `Чатів у пам'яті: ${chats?.total ?? 0}`,
       `Очікують відповіді: ${pending?.total ?? 0}`,
       `Повідомлень в історії: ${messages?.total ?? 0}`,
